@@ -255,312 +255,565 @@ Interpretation of the results obtained for marketing purposes
 
 ### V. CODE USED
 
+
 #Problem-1 (NEURAL NETWORK WITH ONE HIDDEN LAYER AND ONE NODE)
+
 install.packages('neuralnet')
+
 install.packages('caret')
+
 library(neuralnet)
+
 library(caret)
+
+
 
 #Create the dataframe with the provided data
 
+
+
 df <- read.csv(file.choose(),header=TRUE)
+
 View(df)
 
+
+
 names(df)
+
+
 names(df)<-
+
 c('age','spend','Income','mode','recommendation','age_norm','spend_norm','Income_norm')
 
+
+
 #Set seed for reproducibility
+
+
 set.seed(1)
 
+
+
 #Train the neural network model
+
 nn <- neuralnet(recommendation ~ age_norm + spend_norm+Income_norm+mode, data = df,
+
 linear.output = FALSE, hidden = c(1)) #ONE HIDDEN LAYER AND ONE NODE
 
+
+
 #display weights
+
 nn$weights
 
+
+
 #display predictions
+
 prediction(nn)
 
+
+
 #plot network
+
 plot(nn,rep='best')
 
+
+
 #Make predictions
+
 pred <- compute(nn, df[, c('age_norm','spend_norm','Income_norm','mode')])
+
 pred
 
+
+
 #Extract predicted class
+
 pred_class <- ifelse(pred$net.result >= 0.5, 1, 0)
 
+
+
 #Convert predicted class to factor with appropriate levels
+
 pred_class <- factor(pred_class, levels = c(0, 1), labels = c('No', 'Yes'))
 
+
+
 #Ensure that df$Acceptance is a factor
+
 df$recommendation <- factor(df$recommendation , levels = c(0, 1), labels = c('No', 'Yes'))
 
+
+
 #Create confusion matrix
+
 confusionMatrix(pred_class, df$recommendation )
 
+
+
 #####################################################################################
+
 #with one hidden layer with two nodes
+
 df <- read.csv(file.choose(),header=TRUE)
+
 View(df)
+
 names(df)
+
 names(df)<-
+
 c('age','spend','Income','mode','recommendation','age_norm','spend_norm','Income_norm')
 
+
+
 #Set seed for reproducibility
+
 set.seed(1)
 
+
+
 #Train the neural network model
+
 nn <- neuralnet(recommendation ~ age_norm + spend_norm+Income_norm+mode, data = df,
+
+
 
 linear.output = FALSE, hidden = c(2)) #ONE HIDDEN LAYER AND ONE NODE
+
 #ONE HIDDEN LAYER AND TWO NODE
+
 #display weights
+
 nn$weights
+
 #display predictions
+
 prediction(nn)
+
 #plot network
+
 plot(nn,rep='best')
 
+
+
+
 #Make predictions
+
 pred <- compute(nn, df[, c('age_norm','spend_norm','Income_norm','mode')])
+
 pred
 
+
+
 #Extract predicted class
+
 pred_class <- ifelse(pred$net.result >= 0.5, 1, 0)
+
 pred_class
 
+
+
 #Convert predicted class to factor with appropriate levels
+
 pred_class <- factor(pred_class, levels = c(0, 1), labels = c('No', 'Yes'))
 
+
+
 #Ensure that df$Acceptance is a factor
+
 df$recommendation
+
 df$recommendation<- factor(df$recommendation, levels = c(0, 1), labels = c('No', 'Yes'))
 
+
+
 #Create confusion matrix
+
 confusionMatrix(pred_class, df$recommendation)
+
+
 
 ################################################################################
+
 #problem-3 NN WITH ONE HIDDEN LAYER AND THREE NODES
+
 df <- read.csv(file.choose(),header=TRUE)
+
 View(df)
+
 names(df)
+
 names(df)<-
+
 c('age','spend','Income','mode','recommendation','age_norm','spend_norm','Income_norm')
 
+
 #Set seed for reproducibility
+
 set.seed(1)
 
+
+
 #Train the neural network model
+
 nn <- neuralnet(recommendation ~ age_norm + spend_norm+Income_norm+mode, data = df,
+
 linear.output = FALSE, hidden = c(3))#ONE HIDDEN LAYER AND THREE NODE
+
 #display weights
+
 nn$weights
 
-NEURAL NETWORKS
-
-21
-8
-
 #display predictions
+
 prediction(nn)
+
 #plot network
+
 plot(nn,rep='best')
 
+
+
+
 #Make predictions
+
 pred <- compute(nn, df[, c('age_norm','spend_norm','Income_norm','mode')])
+
 pred
 
+
+
 #Extract predicted class
+
 pred_class <- ifelse(pred$net.result >= 0.5, 1, 0)
+
 pred_class
 
+
+
 #Convert predicted class to factor with appropriate levels
+
 pred_class <- factor(pred_class, levels = c(0, 1), labels = c('No', 'Yes'))
+
 df$recommendation
+
 df$recommendation<- factor(df$recommendation, levels = c(0, 1), labels = c('No', 'Yes'))
 
+
+
 #Create confusion matrix
+
 confusionMatrix(pred_class, df$recommendation)
 
+
+
 ################################################################
+
 #problem-3 NN WITH TWO HIDDEN LAYER AND TWO NODES
+
 df <- read.csv(file.choose(),header=TRUE)
+
 View(df)
+
 names(df)
+
 names(df)<-
+
 c('age','spend','Income','mode','recommendation','age_norm','spend_norm','Income_norm')
 
+
+
 #Set seed for reproducibility
+
 set.seed(1)
 
+
+
 #Train the neural network model
+
 nn <- neuralnet(recommendation ~ age_norm + spend_norm+Income_norm+mode, data = df,
+
 linear.output = FALSE, hidden = c(2,2))#TWO HIDDEN LAYER AND TWO NODE
 
+
+
 #display weights
+
 nn$weights
+
 #display predictions
+
 prediction(nn)
+
 #plot network
+
 plot(nn,rep='best')
 
-#Make predictions
-NEURAL NETWORKS
 
-21
-9
+#Make predictions
 
 pred <- compute(nn, df[, c('age_norm','spend_norm','Income_norm','mode')])
+
 pred
 
 #Extract predicted class
+
 pred_class <- ifelse(pred$net.result >= 0.5, 1, 0)
+
 pred_class
 
+
+
+
 #Convert predicted class to factor with appropriate levels
+
 pred_class <- factor(pred_class, levels = c(0, 1), labels = c('No', 'Yes'))
 
+
+
 #Ensure that df$Acceptance is a factor
+
+
 df$recommendation
+
 df$recommendation<- factor(df$recommendation, levels = c(0, 1), labels = c('No', 'Yes'))
 
+
+
 #Create confusion matrix
+
 confusionMatrix(pred_class, df$recommendation)
 
+
+
 ################################################################
+
 #problem-3 NN WITH THREE HIDDEN LAYER AND FOUR NODES
+
 df <- read.csv(file.choose(),header=TRUE)
+
 View(df)
+
+
 names(df)
+
 names(df)<-
+
 c('age','spend','Income','mode','recommendation','age_norm','spend_norm','Income_norm')
 
+
 #Set seed for reproducibility
+
 set.seed(1)
 
+
+
 #Train the neural network model
+
 nn <- neuralnet(recommendation ~ age_norm + spend_norm+Income_norm+mode, data = df,
+
 linear.output = FALSE, hidden = c(4,4,4)) #THREE HIDDEN LAYER AND TEN NODE EACH
+
 #display weights
+
 nn$weights
+
 #display predictions
+
 prediction(nn)
+
 #plot network
+
 plot(nn,rep='best')
 
+
+
+
 #Make predictions
+
 pred <- compute(nn, df[, c('age_norm','spend_norm','Income_norm','mode')])
+
 pred
 
+
+
 #Extract predicted class
+
 pred_class <- ifelse(pred$net.result >= 0.5, 1, 0)
 
-NEURAL NETWORKS
-
-22
-0
 
 pred_class
+
 #Convert predicted class to factor with appropriate levels
+
 pred_class <- factor(pred_class, levels = c(0, 1), labels = c('No', 'Yes'))
 
+
+
+
 #Ensure that df$Acceptance is a factor
+
 df$recommendation
+
+
 df$recommendation<- factor(df$recommendation, levels = c(0, 1), labels = c('No', 'Yes'))
 
+
+
 #Create confusion matrix
+
 confusionMatrix(pred_class, df$recommendation)
+
+
+
 
 #problem-3 NN WITH THREE HIDDEN LAYER AND FOUR NODES
+
 df <- read.csv(file.choose(),header=TRUE)
+
 View(df)
+
 names(df)
+
 names(df)<-
+
 c('age','spend','Income','mode','recommendation','age_norm','spend_norm','Income_norm')
 
+
+
+
 #Set seed for reproducibility
+
 set.seed(1)
 
+
+
 #Train the neural network model
+
 nn <- neuralnet(recommendation ~ age_norm + spend_norm+Income_norm+mode, data = df,
-linear.output = FALSE, hidden = c(10,10,10)) #THREE HIDDEN LAYER AND TEN NODE
-EACH
+
+linear.output = FALSE, hidden = c(10,10,10)) #THREE HIDDEN LAYER AND TEN NODE EACH
+
 #display weights
+
 nn$weights
+
 #display predictions
+
 prediction(nn)
+
 #plot network
+
 plot(nn,rep='best')
 
 #Make predictions
+
 pred <- compute(nn, df[, c('age_norm','spend_norm','Income_norm','mode')])
+
 pred
 
+
+
 #Extract predicted class
+
 pred_class <- ifelse(pred$net.result >= 0.5, 1, 0)
+
 pred_class
 
+
+
 #Convert predicted class to factor with appropriate levels
+
 pred_class <- factor(pred_class, levels = c(0, 1), labels = c('No', 'Yes'))
 
-NEURAL NETWORKS
-
-22
-1
-
 #Ensure that df$Acceptance is a factor
+
 df$recommendation
+
 df$recommendation<- factor(df$recommendation, levels = c(0, 1), labels = c('No', 'Yes'))
 
 #Create confusion matrix
+
 confusionMatrix(pred_class, df$recommendation)
+
 ################################################################
+
 #problem-3 NN WITH FIVE HIDDEN LAYER AND TEN NODES
+
 df <- read.csv(file.choose(),header=TRUE)
+
+
 View(df)
+
 names(df)
+
+
 names(df)<-
+
 c('age','spend','Income','mode','recommendation','age_norm','spend_norm','Income_norm')
 
+
+
 #Set seed for reproducibility
+
 set.seed(1)
 
+
+
 #Train the neural network model
+
 nn <- neuralnet(recommendation ~ age_norm + spend_norm+Income_norm+mode, data = df,
+
 linear.output = FALSE, hidden = c(10,10,10,10,10)) #THREE HIDDEN LAYER AND TEN NODE
+
 EACH
+
 #display weights
+
 nn$weights
+
 #display predictions
+
 prediction(nn)
+
 #plot network
+
 plot(nn,rep='best')
 
+
+
 #Make predictions
+
 pred <- compute(nn, df[, c('age_norm','spend_norm','Income_norm','mode')])
+
 pred
 
+
+
 #Extract predicted class
+
 pred_class <- ifelse(pred$net.result >= 0.5, 1, 0)
+
 pred_class
 
+
+
 #Convert predicted class to factor with appropriate levels
+
 pred_class <- factor(pred_class, levels = c(0, 1), labels = c('No', 'Yes'))
 
+
+
 #Ensure that df$Acceptance is a factor
+
 df$recommendation
+
 df$recommendation<- factor(df$recommendation, levels = c(0, 1), labels = c('No', 'Yes'))
 
-NEURAL NETWORKS
-
-22
-2
-
 #Create confusion matrix
+
 confusionMatrix(pred_class, df$recommendation)
 
 
